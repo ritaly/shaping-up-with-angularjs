@@ -10,6 +10,7 @@
 
     this.setTab = function(newValue){
       this.tab = newValue;
+
     };
 
     this.isSet = function(tabName){
