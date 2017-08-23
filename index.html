@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="gemStore">
   <head>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
@@ -40,39 +41,38 @@
                   <h4>Specs</h4>
                 <blockquote>Shine: {{product.shine}} </blockquote>
               </div>
+              <!--  Review Tab's Content  -->
               <div ng-show="tab.isSet(3)">
-                <h4>Reviews</h4>
-                <div ng-repeat="review in product.reviews">
-                  <blockquote>
-                    <strong>{{review.stars}} Stars </strong>
-                    {{review.body}}
-                    <cite class="clearfix">— {{review.author}}</cite>
-                  </blockquote>
-                </div>
+                <!--  Product Reviews List -->
+                
+                  <h4>Reviews</h4>
+                  <div ng-repeat="review in product.reviews">
+                    <blockquote>
+                      <strong>{{review.stars}} Stars</strong>
+                      {{review.body}}
+                      <cite class="clearfix">—{{review.author}}</cite>
+                    </blockquote>
+                  </div>
                 <!--  Review Form -->
-                <form name="reviewForm">
+                <form name="reviewForm" ng-controller="ReviewController as reviewCtrl" ng-submit="reviewForm.$valid && reviewCtrl.addReview(product)" novalidate>
                   <!--  Live Preview -->
-                  <blockquote>
-                    <strong>{{review.stars}} Stars</strong>
-                    {{review.body}}
-                    <cite class="clearfix">-{{review.author}}</cite>
+                  <blockquote >
+                    <strong>{{reviewCtrl.review.stars}} Stars</strong>
+                    {{reviewCtrl.review.body}}
+                    <cite class="clearfix">—{{reviewCtrl.review.author}}</cite>
                   </blockquote>
                   <!--  Review Form -->
                   <h4>Submit a Review</h4>
                   <fieldset class="form-group">
-                    <select class="form-control" ng-model="review.stars"
-                      ng-options="stars for stars in [5,4,3,2,1]"
-                      title="Stars">
+                    <select ng-model="reviewCtrl.review.stars" class="form-control" ng-options="stars for stars in [5,4,3,2,1]" title="Stars" required >
                       <option value="">Rate the Product</option>
                     </select>
                   </fieldset>
                   <fieldset class="form-group">
-                    <textarea class="form-control" ng-model="review.body"
-                    placeholder="Write a short review of the product..." title="Review"></textarea>
+                    <textarea ng-model="reviewCtrl.review.body" class="form-control" placeholder="Write a short review of the product..." title="Review" required ></textarea>
                   </fieldset>
                   <fieldset class="form-group">
-                    <input type="email" class="form-control" ng-model="review.author"
-                    placeholder="jimmyDean@example.org" title="Email" />
+                    <input ng-model="reviewCtrl.review.author" type="email" class="form-control" placeholder="jimmyDean@example.org" title="Email" required />
                   </fieldset>
                   <fieldset class="form-group">
                     <input type="submit" class="btn btn-primary pull-right" value="Submit Review" />

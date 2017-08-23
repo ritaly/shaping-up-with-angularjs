@@ -31,6 +31,7 @@
       product.reviews.push(this.review);
       this.review = {};
     };
+  });
 
   var gems = [
     {
